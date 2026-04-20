@@ -13,12 +13,15 @@ const ArticleForm = ({fetchArticles})=>{
         author: ""
     });
 
-    const handleSubmit = async ()=>{
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+    const handleSubmit = async (e)=>{
+        if (e) e.preventDefault();
         // Basic guard: don't submit if title or content is empty
         if(!form.title || !form.content) return;
 
         try{
-            await axios.post("http://localhost:5000/api/articles", form);
+            await axios.post(`${API_URL}/api/articles`, form);
             fetchArticles();   //Refresh the list in Home
             setForm({ title: "", content: "", author: "" }); // Clear the form
         }catch(error){

@@ -32,18 +32,30 @@ const ArticleForm = ({fetchArticles})=>{
     return(
         <Card className="p-3 mb-4 shadow">
             <h4 className="text-center mb-3">Add Article</h4>
-            <Form>
-                <Form.Control className="mb-2" placeholder="Title"
-                value={form.title}
-                    onChange={(e)=> setForm({...form, title: e.target.value})} />
-                <Form.Control as="textarea"
-                    rows={3} className="mb-2" placeholder="Content"
+            <Form onSubmit={handleSubmit}> 
+                <Form.Control 
+                    className="mb-2" 
+                    placeholder="Title"
+                    value={form.title}
+                    onChange={(e)=> setForm({...form, title: e.target.value})} 
+                    required
+                />
+                <Form.Control 
+                    as="textarea"
+                    rows={3} 
+                    className="mb-2" 
+                    placeholder="Content"
                     value={form.content}
-                    onChange={(e)=> setForm({...form, content: e.target.value})} />
-                <Form.Control className="mb-3" placeholder="Author (optional)"
+                    onChange={(e)=> setForm({...form, content: e.target.value})} 
+                    required
+                />
+                <Form.Control 
+                    className="mb-3" 
+                    placeholder="Author (optional)"
                     value={form.author}
-                    onChange={(e)=> setForm({...form, author: e.target.value})} />
-                <Button className="w-100" onClick={handleSubmit}>
+                    onChange={(e)=> setForm({...form, author: e.target.value})} 
+                />
+                <Button className="w-100" type="submit">
                     Add Article
                 </Button>
             </Form>

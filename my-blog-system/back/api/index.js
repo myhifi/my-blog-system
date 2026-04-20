@@ -14,7 +14,11 @@ const app = express();
 
 // 4. Middleware — teach the server to understand JSON & allow frontend to talk to it
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ["https://my-blog-system-five.vercel.app", "http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
 
 app.use("/api/articles", require("../routes/articles"));
 

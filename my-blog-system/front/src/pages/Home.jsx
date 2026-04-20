@@ -10,10 +10,13 @@ const Home = ()=>{
 
     const [editArticle, setEditArticle] = useState(null); //means "no article is being edited"
 
+    // The URL changes automatically based on Vercel settings
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+    
     // This function talks to your backend and gets all articles
     const fetchArticles = async ()=>{
         try{
-            const res = await axios.get("http://localhost:5000/api/articles");
+            const res = await axios.get(`${API_URL}/api/articles`);
             setArticles(res.data); //res.data is the array MongoDB returned
         }catch(error){
             console.error("Error fetching articles:", error);
@@ -23,7 +26,7 @@ const Home = ()=>{
     // DELETE — sends DELETE request with the article's id
     const deleteArticle = async (id)=>{
         try{
-            await axios.delete(`http://localhost:5000/api/articles/${id}`);
+            await axios.delete(`${API_URL}/api/articles/${id}`);
             fetchArticles(); //refresh the list after deletion
         }catch(error){
             console.error("Error deleting article:", error);
@@ -33,7 +36,7 @@ const Home = ()=>{
     // UPDATE — sends PUT request with the id and new data
     const updateArticle = async (id, updatedData)=>{
         try{
-            await axios.put(`http://localhost:5000/api/articles/${id}`, updatedData);
+            await axios.put(`${API_URL}/api/articles/${id}`, updatedData);
             setEditArticle(null);  //exit edit mode
             fetchArticles();    // refresh the list
         }catch(error){
